@@ -14,7 +14,8 @@ include( 'admin/includes/functions.php' );
   
   <title>Website Admin</title>
   
-  <link href="styles.css" type="text/css" rel="stylesheet">
+  //<link href="styles.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="/foldername/w3.css">
   
   <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
   
