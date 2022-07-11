@@ -9,29 +9,25 @@ secure();
 if( isset( $_POST['title'] ) )
 {
   
-  if( $_POST['title'] and $_POST['content'] )
+  if( $_POST['title'])
   {
     
-    $query = 'INSERT INTO projects (
+    $query = 'INSERT INTO skills (
         title,
-        content,
-        date,
-        type,
-        url
+        url,
+        percent
       ) VALUES (
-         "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+        "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['percent'] ).'"  
       )';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been added' );
+    set_message( 'Skill has been added' );
     
   }
   
-  header( 'Location: projects.php' );
+  //header( 'Location: skills.php' );
   die();
   
 }
@@ -40,7 +36,7 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Add Project</h2>
+<h2>Add Skill</h2>
 
 <form method="post">
   
@@ -48,57 +44,22 @@ include( 'includes/header.php' );
   <input type="text" name="title" id="title">
     
   <br>
-  
-  <label for="content">Content:</label>
-  <textarea type="text" name="content" id="content" rows="10"></textarea>
-      
-  <script>
 
-  ClassicEditor
-    .create( document.querySelector( '#content' ) )
-    .then( editor => {
-        console.log( editor );
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
-    
-  </script>
-  
-  <br>
-  
   <label for="url">URL:</label>
   <input type="text" name="url" id="url">
   
   <br>
   
-  <label for="date">Date:</label>
-  <input type="date" name="date" id="date">
+  <label for="percent">Percent:</label>
+  <input type="text" name="percent" id="percent">
   
   <br>
   
-  <label for="type">Type:</label>
-  <?php
-  
-  $values = array( 'Website', 'Graphic Design' );
-  
-  echo '<select name="type" id="type">';
-  foreach( $values as $key => $value )
-  {
-    echo '<option value="'.$value.'"';
-    echo '>'.$value.'</option>';
-  }
-  echo '</select>';
-  
-  ?>
-  
-  <br>
-  
-  <input type="submit" value="Add Project">
+  <input type="submit" value="Add Skill">
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="skills.php"><i class="fas fa-arrow-circle-left"></i> Return to Skill List</a></p>
 
 
 <?php
