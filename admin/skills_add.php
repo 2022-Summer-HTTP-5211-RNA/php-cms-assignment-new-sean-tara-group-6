@@ -27,7 +27,7 @@ if( isset( $_POST['title'] ) )
     
   }
   
-  //header( 'Location: skills.php' );
+  header( 'Location: skills.php' );
   die();
   
 }
