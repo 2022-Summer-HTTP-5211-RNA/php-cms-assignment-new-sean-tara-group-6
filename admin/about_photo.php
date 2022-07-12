@@ -9,7 +9,7 @@ secure();
 if( !isset( $_GET['id'] ) )
 {
   
-  header( 'Location: projects.php' );
+  header( 'Location: about.php' );
   die();
   
 }
@@ -37,7 +37,7 @@ if( isset( $_FILES['photo'] ) )
           break;      
       }
 
-      $query = 'UPDATE projects SET
+      $query = 'UPDATE about SET
         photo = "data:image/'.$type.';base64,'.base64_encode( file_get_contents( $_FILES['photo']['tmp_name'] ) ).'"
         WHERE id = '.$_GET['id'].'
         LIMIT 1';
@@ -47,9 +47,9 @@ if( isset( $_FILES['photo'] ) )
     
   }
   
-  set_message( 'Project photo has been updated' );
+  set_message( 'about photo has been updated' );
 
-  header( 'Location: projects.php' );
+  header( 'Location: about.php' );
   die();
   
 }
@@ -61,21 +61,21 @@ if( isset( $_GET['id'] ) )
   if( isset( $_GET['delete'] ) )
   {
     
-    $query = 'UPDATE projects SET
+    $query = 'UPDATE about SET
       photo = ""
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     $result = mysqli_query( $connect, $query );
     
-    set_message( 'Project photo has been deleted' );
+    set_message( 'About photo has been deleted' );
     
-    header( 'Location: projects.php' );
+    header( 'Location: about.php' );
     die();
     
   }
   
   $query = 'SELECT *
-    FROM projects
+    FROM about
     WHERE id = '.$_GET['id'].'
     LIMIT 1';
   $result = mysqli_query( $connect, $query );
@@ -83,7 +83,7 @@ if( isset( $_GET['id'] ) )
   if( !mysqli_num_rows( $result ) )
   {
     
-    header( 'Location: projects.php' );
+    header( 'Location: about.php' );
     die();
     
   }
@@ -98,7 +98,7 @@ include 'includes/wideimage/WideImage.php';
 
 ?>
 
-<h2>Edit Project</h2>
+<h2>Edit About</h2>
 
 <p>
   Note: For best results, photos should be approximately 800 x 800 pixels.
@@ -114,7 +114,7 @@ include 'includes/wideimage/WideImage.php';
 
   ?>
   <p><img src="data:image/jpg;base64,<?php echo base64_encode( $data ); ?>" width="200" height="200"></p>
-  <p><a href="projects_photo.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Photo</a></p>
+  <p><a href="about_photo.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Photo</a></p>
 
 <?php endif; ?>
 
@@ -129,7 +129,7 @@ include 'includes/wideimage/WideImage.php';
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="about.php"><i class="fas fa-arrow-circle-left"></i> Return to About List</a></p>
 
 
 <?php

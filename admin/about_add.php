@@ -12,26 +12,24 @@ if( isset( $_POST['title'] ) )
   if( $_POST['title'] and $_POST['content'] )
   {
     
-    $query = 'INSERT INTO projects (
+    $query = 'INSERT INTO about (
         title,
         content,
-        date,
-        type,
-        url
+        firstname,
+        lastname
       ) VALUES (
-         "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+        "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['firstname'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['lastname'] ).'"
       )';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been added' );
+    set_message( 'About has been added' );
     
   }
   
-  header( 'Location: projects.php' );
+  header( 'Location: about.php' );
   die();
   
 }
@@ -40,7 +38,7 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Add Project</h2>
+<h2>Add About</h2>
 
 <form method="post">
   
@@ -67,38 +65,21 @@ include( 'includes/header.php' );
   
   <br>
   
-  <label for="url">URL:</label>
-  <input type="text" name="url" id="url">
+  <label for="firstname">First Name:</label>
+  <input type="text" name="firstname" id="firstname">
   
   <br>
   
-  <label for="date">Date:</label>
-  <input type="date" name="date" id="date">
+  <label for="lastname">Last Name:</label>
+  <input type="text" name="lastname" id="lastname">
   
   <br>
   
-  <label for="type">Type:</label>
-  <?php
-  
-  $values = array( 'Website', 'Graphic Design' );
-  
-  echo '<select name="type" id="type">';
-  foreach( $values as $key => $value )
-  {
-    echo '<option value="'.$value.'"';
-    echo '>'.$value.'</option>';
-  }
-  echo '</select>';
-  
-  ?>
-  
-  <br>
-  
-  <input type="submit" value="Add Project">
+  <input type="submit" value="Add About">
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="about.php"><i class="fas fa-arrow-circle-left"></i> Return to About List</a></p>
 
 
 <?php

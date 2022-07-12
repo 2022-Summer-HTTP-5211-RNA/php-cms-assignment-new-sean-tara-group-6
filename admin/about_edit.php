@@ -9,7 +9,7 @@ secure();
 if( !isset( $_GET['id'] ) )
 {
   
-  header( 'Location: projects.php' );
+  header( 'Location: about.php' );
   die();
   
 }
@@ -20,21 +20,20 @@ if( isset( $_POST['title'] ) )
   if( $_POST['title'] and $_POST['content'] )
   {
     
-    $query = 'UPDATE projects SET
+    $query = 'UPDATE about SET
       title = "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
       content = "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-      date = "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
-      type = "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+      firstname = "'.mysqli_real_escape_string( $connect, $_POST['firstname'] ).'",
+      lastname = "'.mysqli_real_escape_string( $connect, $_POST['lastname'] ).'"
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been updated' );
+    set_message( 'About has been updated' );
     
   }
 
-  header( 'Location: projects.php' );
+  header( 'Location: about.php' );
   die();
   
 }
@@ -44,7 +43,7 @@ if( isset( $_GET['id'] ) )
 {
   
   $query = 'SELECT *
-    FROM projects
+    FROM about
     WHERE id = '.$_GET['id'].'
     LIMIT 1';
   $result = mysqli_query( $connect, $query );
@@ -52,7 +51,7 @@ if( isset( $_GET['id'] ) )
   if( !mysqli_num_rows( $result ) )
   {
     
-    header( 'Location: projects.php' );
+    header( 'Location: about.php' );
     die();
     
   }
@@ -65,7 +64,7 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Edit Project</h2>
+<h2>Edit About</h2>
 
 <form method="post">
   
@@ -92,39 +91,21 @@ include( 'includes/header.php' );
   
   <br>
   
-  <label for="url">URL:</label>
-  <input type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
+  <label for="firstname">First Name:</label>
+  <input type="text" name="firstname" id="firstname" value="<?php echo htmlentities( $record['firstname'] ); ?>">
     
   <br>
   
-  <label for="date">Date:</label>
-  <input type="date" name="date" id="date" value="<?php echo htmlentities( $record['date'] ); ?>">
+  <label for="lastname">Last Name:</label>
+  <input type="text" name="lastname" id="lastname" value="<?php echo htmlentities( $record['lastname'] ); ?>">
     
   <br>
   
-  <label for="type">Type:</label>
-  <?php
-  
-  $values = array( 'Website', 'Graphic Design' );
-  
-  echo '<select name="type" id="type">';
-  foreach( $values as $key => $value )
-  {
-    echo '<option value="'.$value.'"';
-    if( $value == $record['type'] ) echo ' selected="selected"';
-    echo '>'.$value.'</option>';
-  }
-  echo '</select>';
-  
-  ?>
-  
-  <br>
-  
-  <input type="submit" value="Edit Project">
+  <input type="submit" value="Edit About">
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="about.php"><i class="fas fa-arrow-circle-left"></i> Return to About List</a></p>
 
 
 <?php
