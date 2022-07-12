@@ -9,7 +9,7 @@ secure();
 if( !isset( $_GET['id'] ) )
 {
   
-  header( 'Location: projects.php' );
+  header( 'Location: skills.php' );
   die();
   
 }
@@ -17,24 +17,22 @@ if( !isset( $_GET['id'] ) )
 if( isset( $_POST['title'] ) )
 {
   
-  if( $_POST['title'] and $_POST['content'] )
+  if( $_POST['title'] )
   {
     
-    $query = 'UPDATE projects SET
+    $query = 'UPDATE skills SET
       title = "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
-      content = "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-      date = "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
-      type = "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
+      percent = "'.mysqli_real_escape_string( $connect, $_POST['percent'] ).'"
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been updated' );
+    set_message( 'Skill has been updated' );
     
   }
 
-  header( 'Location: projects.php' );
+  header( 'Location: skills.php' );
   die();
   
 }
@@ -44,7 +42,7 @@ if( isset( $_GET['id'] ) )
 {
   
   $query = 'SELECT *
-    FROM projects
+    FROM skills
     WHERE id = '.$_GET['id'].'
     LIMIT 1';
   $result = mysqli_query( $connect, $query );
@@ -52,7 +50,7 @@ if( isset( $_GET['id'] ) )
   if( !mysqli_num_rows( $result ) )
   {
     
-    header( 'Location: projects.php' );
+    header( 'Location: skills.php' );
     die();
     
   }
@@ -65,7 +63,7 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Edit Project</h2>
+<h2>Edit Skill</h2>
 
 <form method="post">
   
@@ -74,57 +72,21 @@ include( 'includes/header.php' );
     
   <br>
   
-  <label for="content">Content:</label>
-  <textarea type="text" name="content" id="content" rows="5"><?php echo htmlentities( $record['content'] ); ?></textarea>
-  
-  <script>
-
-  ClassicEditor
-    .create( document.querySelector( '#content' ) )
-    .then( editor => {
-        console.log( editor );
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
-    
-  </script>
-  
-  <br>
-  
   <label for="url">URL:</label>
   <input type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
     
   <br>
   
-  <label for="date">Date:</label>
-  <input type="date" name="date" id="date" value="<?php echo htmlentities( $record['date'] ); ?>">
+  <label for="percent">Percent:</label>
+  <input type="text" name="percent" id="percent" value="<?php echo htmlentities( $record['percent'] ); ?>">
     
-  <br>
-  
-  <label for="type">Type:</label>
-  <?php
-  
-  $values = array( 'Website', 'Graphic Design' );
-  
-  echo '<select name="type" id="type">';
-  foreach( $values as $key => $value )
-  {
-    echo '<option value="'.$value.'"';
-    if( $value == $record['type'] ) echo ' selected="selected"';
-    echo '>'.$value.'</option>';
-  }
-  echo '</select>';
-  
-  ?>
-  
   <br>
   
   <input type="submit" value="Edit Project">
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="skill.php"><i class="fas fa-arrow-circle-left"></i> Return to Skill List</a></p>
 
 
 <?php
