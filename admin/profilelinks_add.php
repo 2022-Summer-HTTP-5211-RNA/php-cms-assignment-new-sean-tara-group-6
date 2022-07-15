@@ -15,11 +15,11 @@ if( isset( $_POST['name'] ) )
     $query = 'INSERT INTO profile_links (
         name,
         url,
-        icon
+        photo
       ) VALUES (
          "'.mysqli_real_escape_string( $connect, $_POST['name'] ).'",
          "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
-         "'.mysqli_real_escape_string( $connect, $_POST['icon'] ).'"
+         "'.mysqli_real_escape_string( $connect, $_POST['photo'] ).'"
       )';
     mysqli_query( $connect, $query );
     
@@ -50,8 +50,8 @@ include( 'includes/header.php' );
   
   <br>
   
-  <label for="icon">Icon:</label>
-  <input type="text" name="icon" id="icon">
+  <label for="photo">Photo:</label>
+  <input type="text" name="photo" id="photo">
   
   <br>
   

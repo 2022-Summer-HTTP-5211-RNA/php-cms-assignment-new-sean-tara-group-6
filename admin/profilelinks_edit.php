@@ -23,7 +23,7 @@ if( isset( $_POST['name'] ) )
     $query = 'UPDATE profile_links SET
       name = "'.mysqli_real_escape_string( $connect, $_POST['name'] ).'",
       url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
-      icon = "'.mysqli_real_escape_string( $connect, $_POST['icon'] ).'"
+      photo = "'.mysqli_real_escape_string( $connect, $_POST['photo'] ).'"
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
@@ -77,8 +77,8 @@ include( 'includes/header.php' );
     
   <br>
   
-  <label for="icon">Icon:</label>
-  <input type="text" name="icon" id="icon" value="<?php echo htmlentities( $record['icon'] ); ?>">
+  <label for="photo">Photo:</label>
+  <input type="text" name="photo" id="photo" value="<?php echo htmlentities( $record['photo'] ); ?>">
     
   <br>
   
