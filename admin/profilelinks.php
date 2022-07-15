@@ -45,7 +45,7 @@ $result = mysqli_query( $connect, $query );
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
       <td align="center">
-        <img src="image.php?type=profile_link&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
+        <img src="image.php?type=profile_links&id=<?php echo $record['id']; ?>&width=100&height=100&format=inside">
       </td>
       <td align="center"><?php echo $record['id']; ?></td>
       <td align="left">
