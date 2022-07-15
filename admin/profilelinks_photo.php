@@ -101,7 +101,7 @@ include 'includes/wideimage/WideImage.php';
 <h2>Edit Profile Link</h2>
 
 <p>
-  Note: For best results, photo images should be approximately 800 x 800 pixels.
+  Note: For best results, photos should be approximately 800 x 800 pixels.
 </p>
 
 <?php if( $record['photo'] ): ?>
