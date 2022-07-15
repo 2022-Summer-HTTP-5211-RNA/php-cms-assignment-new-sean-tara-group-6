@@ -14,16 +14,16 @@ if( !isset( $_GET['id'] ) )
   
 }
 
-if( isset( $_FILES['icon'] ) )
+if( isset( $_FILES['photo'] ) )
 {
   
-  if( isset( $_FILES['icon'] ) )
+  if( isset( $_FILES['photo'] ) )
   {
   
-    if( $_FILES['icon']['error'] == 0 )
+    if( $_FILES['photo']['error'] == 0 )
     {
 
-      switch( $_FILES['icon']['type'] )
+      switch( $_FILES['photo']['type'] )
       {
         case 'image/png': 
           $type = 'png'; 
@@ -38,7 +38,7 @@ if( isset( $_FILES['icon'] ) )
       }
 
       $query = 'UPDATE profile_links SET
-        icon = "data:image/'.$type.';base64,'.base64_encode( file_get_contents( $_FILES['icon']['tmp_name'] ) ).'"
+        photo = "data:image/'.$type.';base64,'.base64_encode( file_get_contents( $_FILES['photo']['tmp_name'] ) ).'"
         WHERE id = '.$_GET['id'].'
         LIMIT 1';
       mysqli_query( $connect, $query );
@@ -47,7 +47,7 @@ if( isset( $_FILES['icon'] ) )
     
   }
   
-  set_message( 'Profile Link icon has been updated' );
+  set_message( 'Profile Link photo has been updated' );
 
   header( 'Location: profilelinks.php' );
   die();
@@ -62,12 +62,12 @@ if( isset( $_GET['id'] ) )
   {
     
     $query = 'UPDATE profile_links SET
-      icon = ""
+      photo = ""
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     $result = mysqli_query( $connect, $query );
     
-    set_message( 'Profile Link icon has been deleted' );
+    set_message( 'Profile Link photo has been deleted' );
     
     header( 'Location: profilelinks.php' );
     die();
@@ -101,31 +101,31 @@ include 'includes/wideimage/WideImage.php';
 <h2>Edit Profile Link</h2>
 
 <p>
-  Note: For best results, icon images should be approximately 800 x 800 pixels.
+  Note: For best results, photo images should be approximately 800 x 800 pixels.
 </p>
 
-<?php if( $record['icon'] ): ?>
+<?php if( $record['photo'] ): ?>
 
   <?php
 
-  $data = base64_decode( explode( ',', $record['icon'] )[1] );
+  $data = base64_decode( explode( ',', $record['photo'] )[1] );
   $img = WideImage::loadFromString( $data );
   $data = $img->resize( 200, 200, 'outside' )->crop( 'center', 'center', 200, 200 )->asString( 'jpg', 70 );
 
   ?>
   <p><img src="data:image/jpg;base64,<?php echo base64_encode( $data ); ?>" width="200" height="200"></p>
-  <p><a href="profilelinks_icon.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Icon</a></p>
+  <p><a href="profilelinks_photo.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Photo</a></p>
 
 <?php endif; ?>
 
 <form method="post" enctype="multipart/form-data">
   
-  <label for="icon">Icon:</label>
-  <input type="file" name="icon" id="icon">
+  <label for="photo">Photo:</label>
+  <input type="file" name="photo" id="photo">
   
   <br>
   
-  <input type="submit" value="Save Icon">
+  <input type="submit" value="Save Photo">
   
 </form>
 

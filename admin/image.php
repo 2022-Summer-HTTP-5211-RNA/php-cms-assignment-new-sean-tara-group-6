@@ -63,7 +63,7 @@ switch( $_GET['type'] )
     $result = mysqli_query( $connect, $query );
     $record = mysqli_fetch_assoc( $result );
 
-    if( !$record['icon'] ) $record['icon'] = $camera;
+    if( !$record['photo'] ) $record['photo'] = $camera;
     
     break;
 }
