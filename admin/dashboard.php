@@ -32,6 +32,11 @@ include( 'includes/header.php' );
     </a>
   </li>
   <li>
+    <a href="contact.php">
+      Manage Contacts
+    </a>
+  </li>
+  <li>
     <a href="users.php">
       Manage Users
     </a>

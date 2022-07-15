@@ -9,32 +9,32 @@ secure();
 if( !isset( $_GET['id'] ) )
 {
   
-  header( 'Location: projects.php' );
+  header( 'Location: contact.php' );
   die();
   
 }
 
-if( isset( $_POST['title'] ) )
+if( isset( $_POST['firstname'] ) )
 {
   
-  if( $_POST['title'] and $_POST['content'] )
+  if( $_POST['firstname'] and $_POST['message'] )
   {
     
-    $query = 'UPDATE projects SET
-      title = "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
-      content = "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-      date = "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
-      type = "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+    $query = 'UPDATE contact SET
+      firstname = "'.mysqli_real_escape_string( $connect, $_POST['firstname'] ).'",
+      lastname = "'.mysqli_real_escape_string( $connect, $_POST['lastname'] ).'",
+      email = "'.mysqli_real_escape_string( $connect, $_POST['email'] ).'",
+      message = "'.mysqli_real_escape_string( $connect, $_POST['message'] ).'",
+      date = "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'"
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been updated' );
+    set_message( 'Contact has been updated' );
     
   }
 
-  header( 'Location: projects.php' );
+  header( 'Location: contact.php' );
   die();
   
 }
@@ -44,7 +44,7 @@ if( isset( $_GET['id'] ) )
 {
   
   $query = 'SELECT *
-    FROM projects
+    FROM contact
     WHERE id = '.$_GET['id'].'
     LIMIT 1';
   $result = mysqli_query( $connect, $query );
@@ -52,7 +52,7 @@ if( isset( $_GET['id'] ) )
   if( !mysqli_num_rows( $result ) )
   {
     
-    header( 'Location: projects.php' );
+    header( 'Location: contact.php' );
     die();
     
   }
@@ -65,22 +65,32 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Edit Project</h2>
+<h2>Edit Contact</h2>
 
 <form method="post">
   
-  <label for="title">Title:</label>
-  <input type="text" name="title" id="title" value="<?php echo htmlentities( $record['title'] ); ?>">
+  <label for="firstname">First Name:</label>
+  <input type="text" name="firstname" id="firstname" value="<?php echo htmlentities( $record['firstname'] ); ?>">
+    
+  <br>
+
+  <label for="lastname">Last Name:</label>
+  <input type="text" name="lastname" id="lastname" value="<?php echo htmlentities( $record['lastname'] ); ?>">
+    
+  <br>
+
+  <label for="email">Email:</label>
+  <input type="text" name="email" id="email" value="<?php echo htmlentities( $record['email'] ); ?>">
     
   <br>
   
-  <label for="content">Content:</label>
-  <textarea type="text" name="content" id="content" rows="5"><?php echo htmlentities( $record['content'] ); ?></textarea>
+  <label for="message">Message:</label>
+  <textarea type="text" name="message" id="message" rows="5"><?php echo htmlentities( $record['message'] ); ?></textarea>
   
   <script>
 
   ClassicEditor
-    .create( document.querySelector( '#content' ) )
+    .create( document.querySelector( '#message' ) )
     .then( editor => {
         console.log( editor );
     } )
@@ -92,39 +102,16 @@ include( 'includes/header.php' );
   
   <br>
   
-  <label for="url">URL:</label>
-  <input type="text" name="url" id="url" value="<?php echo htmlentities( $record['url'] ); ?>">
-    
-  <br>
-  
   <label for="date">Date:</label>
   <input type="date" name="date" id="date" value="<?php echo htmlentities( $record['date'] ); ?>">
     
   <br>
   
-  <label for="type">Type:</label>
-  <?php
-  
-  $values = array( 'Website', 'Graphic Design' );
-  
-  echo '<select name="type" id="type">';
-  foreach( $values as $key => $value )
-  {
-    echo '<option value="'.$value.'"';
-    if( $value == $record['type'] ) echo ' selected="selected"';
-    echo '>'.$value.'</option>';
-  }
-  echo '</select>';
-  
-  ?>
-  
-  <br>
-  
-  <input type="submit" value="Edit Project">
+  <input type="submit" value="Edit Contact">
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Project List</a></p>
+<p><a href="contact.php"><i class="fas fa-arrow-circle-left"></i> Return to Contact List</a></p>
 
 
 <?php

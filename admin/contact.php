@@ -9,14 +9,14 @@ secure();
 if( isset( $_GET['delete'] ) )
 {
   
-  $query = 'DELETE FROM projects
+  $query = 'DELETE FROM contact
     WHERE id = '.$_GET['delete'].'
     LIMIT 1';
   mysqli_query( $connect, $query );
     
-  set_message( 'Project has been deleted' );
+  set_message( 'Contact info and message has been deleted' );
   
-  header( 'Location: projects.php' );
+  header( 'Location: contact.php' );
   die();
   
 }
@@ -24,13 +24,17 @@ if( isset( $_GET['delete'] ) )
 include( 'includes/header.php' );
 
 $query = 'SELECT *
-  FROM projects
+  FROM contact
   ORDER BY date DESC';
 $result = mysqli_query( $connect, $query );
 
 ?>
 
-<h2>Manage Projects</h2>
+<h2>Manage Contacts</h2>
+
+<p>When prospective clients submit messages through the Contact Me form their information is stored in the database and can be managed here.</p>
+
+<br>
 
 <table>
   <tr>
@@ -46,25 +50,21 @@ $result = mysqli_query( $connect, $query );
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
       <td align="center">
-        <img src="image.php?type=project&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
+        <img src="image.php?type=contact&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
       </td>
       <td align="center"><?php echo $record['id']; ?></td>
-      <td align="left">
-        <?php echo htmlentities( $record['title'] ); ?>
-        <small><?php echo $record['content']; ?></small>
-      </td>
-      <td align="center"><?php echo $record['type']; ?></td>
+      <td align="left"><?php echo $record['firstname']; ?></td>
+      <td align="left"><?php echo $record['lastname']; ?></td>
       <td align="center" style="white-space: nowrap;"><?php echo htmlentities( $record['date'] ); ?></td>
-      <td align="center"><a href="projects_photo.php?id=<?php echo $record['id']; ?>">Photo</i></a></td>
-      <td align="center"><a href="projects_edit.php?id=<?php echo $record['id']; ?>">Edit</i></a></td>
+      <td align="left"><?php echo $record['email']; ?></td>
+      <td align="left"><?php echo $record['message']; ?></td>
+      <td align="center"><a href="contact_edit.php?id=<?php echo $record['id']; ?>">Edit</i></a></td>
       <td align="center">
-        <a href="projects.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this project?');">Delete</i></a>
+        <a href="contact.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this contact?');">Delete</i></a>
       </td>
     </tr>
   <?php endwhile; ?>
 </table>
-
-<p><a href="projects_add.php"><i class="fas fa-plus-square"></i> Add Project</a></p>
 
 
 <?php

@@ -21,9 +21,9 @@ if( isset( $_POST['name'] ) )
   {
     
     $query = 'UPDATE profile_links SET
-      title = "'.mysqli_real_escape_string( $connect, $_POST['name'] ).'",
-      type = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
-      url = "'.mysqli_real_escape_string( $connect, $_POST['icon'] ).'"
+      name = "'.mysqli_real_escape_string( $connect, $_POST['name'] ).'",
+      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'",
+      icon = "'.mysqli_real_escape_string( $connect, $_POST['icon'] ).'"
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
