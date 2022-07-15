@@ -28,7 +28,7 @@ switch( $_GET['type'] )
     
     break;
 
-  case 'skill':
+  case 'skills':
   
     $query = 'SELECT photo 
       FROM skills
