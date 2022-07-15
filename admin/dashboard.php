@@ -27,6 +27,11 @@ include( 'includes/header.php' );
     </a>
   </li>
   <li>
+    <a href="profilelinks.php">
+      Manage Profile Links
+    </a>
+  </li>
+  <li>
     <a href="users.php">
       Manage Users
     </a>
