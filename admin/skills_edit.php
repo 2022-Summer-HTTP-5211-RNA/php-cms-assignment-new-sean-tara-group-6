@@ -86,7 +86,7 @@ include( 'includes/header.php' );
   
 </form>
 
-<p><a href="skill.php"><i class="fas fa-arrow-circle-left"></i> Return to Skill List</a></p>
+<p><a href="skills.php"><i class="fas fa-arrow-circle-left"></i> Return to Skill List</a></p>
 
 
 <?php
