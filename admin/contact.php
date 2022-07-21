@@ -66,6 +66,7 @@ $result = mysqli_query( $connect, $query );
   <?php endwhile; ?>
 </table>
 
+<p><a href="contact_add.php"><i class="fas fa-plus-square"></i> Add Contact</a></p>
 
 <?php
 
