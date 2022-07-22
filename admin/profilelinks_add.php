@@ -38,7 +38,7 @@ include( 'includes/header.php' );
 
 <h2>Add Profile Link</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   
   <label for="name">Name:</label>
   <input type="text" name="name" id="name">
@@ -51,7 +51,7 @@ include( 'includes/header.php' );
   <br>
   
   <label for="photo">Photo:</label>
-  <input type="text" name="photo" id="photo">
+  <input type="file" name="photo" id="photo">
   
   <br>
   
