@@ -38,20 +38,17 @@ $result = mysqli_query( $connect, $query );
 
 <table>
   <tr>
-    <th></th>
+    <!--<th></th>-->
     <th align="center">ID</th>
-    <th align="left">Title</th>
-    <th align="center">Type</th>
-    <th align="center">Date</th>
-    <th></th>
-    <th></th>
+    <th align="left">First Name</th>
+    <th align="left">Last Name</th>
+    <th align="center">Date of Message</th>
+    <th align="center">E-mail</th>
+    <th align="left">Message</th>
     <th></th>
   </tr>
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
-      <td align="center">
-        <img src="image.php?type=contact&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
-      </td>
       <td align="center"><?php echo $record['id']; ?></td>
       <td align="left"><?php echo $record['firstname']; ?></td>
       <td align="left"><?php echo $record['lastname']; ?></td>
@@ -66,7 +63,6 @@ $result = mysqli_query( $connect, $query );
   <?php endwhile; ?>
 </table>
 
-<p><a href="contact_add.php"><i class="fas fa-plus-square"></i> Add Contact</a></p>
 
 <?php
 
