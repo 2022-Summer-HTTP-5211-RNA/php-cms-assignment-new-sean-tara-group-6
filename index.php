@@ -9,17 +9,18 @@ include( 'admin/includes/functions.php' );
 <!doctype html>
 <html>
 <head>
-  
   <meta charset="UTF-8">
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-  
-  <title>Website Admin</title>
+  <title>Sean Trudel Web Dev Portfolio</title>
   
   <!--<link href="styles.css" type="text/css" rel="stylesheet">-->
-  <link rel="stylesheet" type="text/css" href="/admin/styles/w3css-master/w3.css">
+  <link rel="stylesheet" type="text/css" href="admin/styles/w3css-master/w3.css">
   
   <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+  <!--<script src="admin/javascript/contact_form_validation.js"></script>-->
   
+  <!-- Hidden Thank You message that becomes visible upon Contact form submission. -->
+  <style>#thanks_msg{display: none;}</style>
 </head>
 <body>
 
@@ -74,12 +75,12 @@ include( 'admin/includes/functions.php' );
   <!-- Contact form PHP: -->
   <?php
 
-  secure();
+  //secure();
 
-  if( isset( $_POST['firstname'] ) )
+  if( isset( $_POST['f_firstname'] ) )  //Note: POST variables must be the same as form name= attributes.
   {
     
-    if( $_POST['firstname'] and $_POST['email'] and $_POST['message'] )
+    if( $_POST['f_firstname'] and $_POST['f_email'] and $_POST['f_message'] )
     {
       
       $query = 'INSERT INTO contact (
@@ -89,16 +90,14 @@ include( 'admin/includes/functions.php' );
           message,
           date
         ) VALUES (
-           "'.mysqli_real_escape_string( $connect, $_POST['firstname'] ).'",
-           "'.mysqli_real_escape_string( $connect, $_POST['lastname'] ).'",
-           "'.mysqli_real_escape_string( $connect, $_POST['email'] ).'",
-           "'.mysqli_real_escape_string( $connect, $_POST['message'] ).'",
-           "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'"
+           "'.mysqli_real_escape_string( $connect, $_POST['f_firstname'] ).'",
+           "'.mysqli_real_escape_string( $connect, $_POST['f_lastname'] ).'",
+           "'.mysqli_real_escape_string( $connect, $_POST['f_email'] ).'",
+           "'.mysqli_real_escape_string( $connect, $_POST['f_message'] ).'",
+           CURRENT_TIMESTAMP
         )';
       mysqli_query( $connect, $query );
-      
-      set_message( 'Thank you for your message! I will get back to you as soon as possible. Have a nice day!' );
-      
+           
     }
     
     header( 'Location: index.php' );
@@ -107,29 +106,35 @@ include( 'admin/includes/functions.php' );
   }
 
   ?> <!-- End of Contact form PHP. -->
+<!-- "'.mysqli_real_escape_string( $connect, $_POST['f_date'] ).'" -->
+
 
   <!-- Contact form HTML: -->
   <h2>Contact Me</h2>
 
-  <form method="post">
+  <form action="#" method="post" id="contactForm" name=form_contact">
     
     <label for="firstname">First Name:</label>
-    <input type="text" name="firstname" id="firstname">
+    <input type="text" name="f_firstname" id="firstname">
+    <span id="firstnameError"></span>
       
     <br>
 
     <label for="lastname">Last Name:</label>
-    <input type="text" name="lastname" id="lastname">
+    <input type="text" name="f_lastname" id="lastname">
+    <span id="lastnameError"></span>
       
     <br>
 
     <label for="email">E-mail:</label>
-    <input type="text" name="email" id="email">
+    <input type="text" name="f_email" id="email">
+    <span id="emailError"></span>
     
     <br>
     
     <label for="message">Message:</label>
-    <textarea type="text" name="message" id="message" rows="10"></textarea>
+    <textarea type="text" name="f_message" id="message" rows="10"></textarea>
+    <span id="messageError"></span>
         
     <script>
 
@@ -152,10 +157,19 @@ include( 'admin/includes/functions.php' );
     <br>
     -->
     
-    <input type="submit" value="Send Message">
+    <input type="submit" value="Send Message" name="submit">
     
-  </form>
+  </form> <!-- End of Contact form -->
 
+
+  <!--#### OUTPUT MESSAGE (HIDDEN UNTIL FORM VALIDATES) #### -->
+  <div id="thanks_msg">
+    <h2>Thank you <span id="firstnameThanks"></span> <span id="lastnameThanks"></span> for your message! I will get back to you as soon as possible. Have a nice day!</h2>
+    <!-- UPDATE: Insert code that prints User's firstname & lastname (info from Contact form submission;
+    the latest info stored in the Contact table in the database) into above Thank You message. -->
+    <!-- <span id="firstnameThanks"></span> <span id="lastnameThanks"></span> -->
+  </div>
+  
 
 </body>
 </html>
